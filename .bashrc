@@ -1,17 +1,9 @@
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export NVM_DIR="/home/natan/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export PATH=${PATH}:/opt/android-sdk/platform-tools:/opt/android-sdk/tools
-export ANDROID_HOME="/opt/android-sdk"
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
 stty stop undef
-
 [ -r /etc/bashrc ] && source /etc/bashrc
 [ -r /etc/bash_completion ] && source /etc/bash_completion
 [ -r ~/.git-completion.bash ] && source ~/.git-completion.bash
 [ -r ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-[ -r /usr/local/rvm/scripts/rvm ] && source /usr/local/rvm/scripts/rvm
-
+[ -r ~/.console/console.rc ] && source ~/.console/console.rc 2>/dev/null
 __has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
@@ -56,7 +48,7 @@ alias ls='ls -F --color=always'
 alias dir='dir -F --color=always'
 alias ll='ls -l'
 alias cp='cp -iv'
-alias rm='rm -i'
+#alias rm='rm -i'
 alias mv='mv -iv'
 alias grep='grep --color=auto -in'
 alias ..='cd ..'

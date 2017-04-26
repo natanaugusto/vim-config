@@ -25,7 +25,10 @@ Plugin 'file:///home/gmarik/path/to/plugin'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 Plugin 'user/L9', {'name': 'newL9'}
-" All of your Plugins must be added before the following line
+
+" EditorConfig
+Plugin 'editorconfig/editorconfig-vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -51,7 +54,8 @@ let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 "let NERDTreeMapOpenInTab='<ENTER>'
-
+let g:NERDTreeWinPos = 'right'
+let NERDTreeShowHidden=1
 command -nargs=0 -bar Update if &modified 
                            \|    if empty(bufname('%'))
                            \|        browse confirm write
@@ -60,15 +64,37 @@ command -nargs=0 -bar Update if &modified
                            \|    endif
                            \|endif
 nnoremap <silent> <C-S> :<C-u>Update<CR>
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>l 
-vnoremap <C-s> <Esc>:w<CR>
+"nnoremap <C-s> :w<CR>
+"inoremap <C-s> <Esc>:w<CR>l 
+"vnoremap <C-s> <Esc>:w<CR>
 
 set expandtab
 set tabstop=2
-set autoindent
 set shiftwidth=2
-set softtabstop=2
+set autoindent
+set smartindent
+if has("autocmd")
+  " Drupal *.module and *.install files.
+  augroup module
+    autocmd BufRead,BufNewFile *.theme set filetype=php
+    autocmd BufRead,BufNewFile *.module set filetype=php
+    autocmd BufRead,BufNewFile *.install set filetype=php
+    autocmd BufRead,BufNewFile *.test set filetype=php
+    autocmd BufRead,BufNewFile *.inc set filetype=php
+    autocmd BufRead,BufNewFile *.profile set filetype=php
+    autocmd BufRead,BufNewFile *.view set filetype=php
+  augroup END
+endif
+syntax on
 
+au BufNewFile,BufRead *.install set filetype=php
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
